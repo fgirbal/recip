@@ -36,7 +36,7 @@ public class CustomList extends ArrayAdapter<String> {
 
         DownloadImages a = new DownloadImages(imageView);
         a.execute(urls[position]);
-
+        txtTitle.invalidate();
         return rowView;
     }
 }

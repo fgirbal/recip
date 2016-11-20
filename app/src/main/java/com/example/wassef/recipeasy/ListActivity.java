@@ -3,6 +3,8 @@ package com.example.wassef.recipeasy;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 public class ListActivity extends Activity {
 
     ListView list;
+    WebView mWebview;
     String[] titles = {
             "Google Plus",
             "Twitter",
@@ -63,13 +66,27 @@ public class ListActivity extends Activity {
                 CustomList(this, titles, image_urls);
         list=(ListView)findViewById(R.id.list);
         list.setAdapter(adapter);
+        ListView vg = (ListView) findViewById(R.id.list);
+        vg.invalidate();
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 Toast.makeText(getApplicationContext(), "You Clicked at " +urls[+ position], Toast.LENGTH_SHORT).show();
+                mWebview  = new WebView(ListActivity.this);
 
+                mWebview.getSettings().setJavaScriptEnabled(true); // enable javascript
+
+
+                mWebview.setWebViewClient(new WebViewClient() {
+                    public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+                        Toast.makeText(ListActivity.this, description, Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                mWebview .loadUrl(urls[position]);
+                setContentView(mWebview );
             }
         });
 

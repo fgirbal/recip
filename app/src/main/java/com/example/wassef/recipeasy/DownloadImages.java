@@ -3,6 +3,7 @@ package com.example.wassef.recipeasy;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import java.io.IOException;
@@ -40,5 +41,6 @@ public class DownloadImages extends
     @Override
     protected void onPostExecute(Bitmap result) {
         imgview.setImageBitmap(result);
+
     }
 }
